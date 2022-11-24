@@ -1,6 +1,6 @@
 # Run this test with the capture=no argmument:
 #
-#    pytest --capture=no
+#    pytest -v
 
 import pytest
 from main import User
@@ -13,8 +13,6 @@ def test_user_create_missing_args(users):
         user = User()
     assert "__init__() missing 2 required positional arguments: 'name' and 'id'" in str(exp.value)
 
-    print(users[-1])
-
 
 @pytest.mark.sad
 def test_user_change_name(users):
@@ -22,8 +20,6 @@ def test_user_change_name(users):
         users[0].name = 'Marcus'
         pass
     assert str(exp.value) == "The 'name' attribute can't be set/changed directly"
-
-    print(users[-1])
 
 
 @pytest.mark.sad
@@ -33,8 +29,6 @@ def test_user_change_id(users):
         pass
     assert str(exp.value) == "The 'id' attribute can't be set/changed directly"
 
-    print(users[-1])
-
 
 @pytest.mark.sad
 def test_user_change_status(users):
@@ -42,5 +36,3 @@ def test_user_change_status(users):
         users[0].status = 'Inactive'
         pass
     assert str(exp.value) == "The 'status' attribute can't be set/changed directly"
-
-    print(users[-1])
