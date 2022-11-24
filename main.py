@@ -1,3 +1,5 @@
+import time
+
 
 class SimpleError(Exception):
     pass
@@ -45,15 +47,43 @@ class User():
                                       'Active' if self._status else 'Inactive')
 
 
+class SimulatedDB():
+    def __init__(self):
+        self._users = list()
+        self._users.append(User('John', 1))
+        self._users.append(User('Mary', 2, False))
+
+        self._conn = False
+
+    def connect(self):
+        time.sleep(4)
+        self._conn = True
+        return True
+
+    def get_all_users(self) -> list:
+        if self._conn:
+            time.sleep(10)
+            return self._users
+        else:
+            time.sleep(3)
+            raise SimpleError("There is no active connection to the DB")
+
+    def close(self):
+        if self._conn:
+            self._conn = False
+            time.sleep(3)
+            return True
+        else:
+            time.sleep(3)
+            raise SimpleError("There is no active connection to the DB")
+
+
 if __name__ == "__main__":
 
-    users = list()
-
-    users.append(User('John', 1, True))
-    users.append(User('Mary', 2, True))
-    users.append(User('Boni', 3, False))
-    users.append(User('Antonio', 4, True))
-    users.append(User('Juca', 5, True))
+    db = SimulatedDB()
+    db.connect()
+    users = db.get_all_users()
+    db.close()
 
     for user in users:
         print(user)
