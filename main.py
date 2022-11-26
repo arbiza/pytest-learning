@@ -50,9 +50,6 @@ class User():
 class SimulatedDB():
     def __init__(self):
         self._users = list()
-        self._users.append(User('John', 1))
-        self._users.append(User('Mary', 2, False))
-
         self._conn = False
 
     def connect(self):
@@ -60,9 +57,11 @@ class SimulatedDB():
         self._conn = True
         return True
 
-    def get_all_users(self) -> list:
+    def get_all_users(self):
         if self._conn:
             time.sleep(10)
+            self._users.append(User('John', 1))
+            self._users.append(User('Mary', 2, False))
             return self._users
         else:
             time.sleep(3)

@@ -1,6 +1,6 @@
 # Run this test with the capture=no argmument:
 #
-#    pytest -v
+#    pytest -v capture=no
 
 import pytest
 from main import User
